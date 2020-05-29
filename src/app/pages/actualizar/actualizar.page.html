@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="warning" *ngIf="datos">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="lista"></ion-back-button>
+    </ion-buttons>
+    <ion-title mode="ios">{{datos.title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="delete(datos._id)"><ion-icon name="trash"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="datos">
+
+  <ion-card class="ion-padding" style="border: 1px solid rgba(0, 0, 0, 0.4);">
+    <ion-card-title class="ion-text-center" color="dark" style="font-weight: bold;">
+      <ion-text>Actualizar Imagenes</ion-text>
+    </ion-card-title><br>
+    <!-- <ion-img src="{{img}}"></ion-img> -->
+    <input type="file"  accept="image/*" capture class="hidden" (change)="onPhotoSelected($event)" #photoInput>
+    <!-- <img [src]="photoselected || img" (click)="photoInput.click()"> -->
+    <img [src]="photoselected || img">
+    <ion-button color="warning" expand="block" (click)="photoInput.click()">
+      <ion-icon name="image" slot="start"></ion-icon> Cambiar foto
+    </ion-button>
+    <ion-item>
+      <ion-label position="floating">Titulo:</ion-label>
+      <ion-input [(ngModel)]="datos.title" type="text" value="{{datos.title}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Precio:</ion-label>
+      <ion-input [(ngModel)]="datos.price" type="number" value="{{datos.price}}"></ion-input>
+    </ion-item>
+    <ion-button color="warning" expand="block" (click)="update(datos._id)">
+      <ion-icon name="save" slot="start"></ion-icon> Actualizar
+    </ion-button>
+  </ion-card>
+  <!-- <ion-button color="warning" expand="block" routerLink="/lista">
+    <ion-icon slot="start" name="grid-outline"></ion-icon>Lista de Fotos
+  </ion-button> -->
+
+</ion-content>
+
+<ion-footer class="ion-no-padding">
+  <ion-toolbar color="warning">
+    <ion-button  fill="clear" expand="full" routerLink="/lista" style="color: #000;">
+      <ion-icon slot="start" name="grid-outline"></ion-icon>Lista de Fotos
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/registrar"></ion-back-button>
+      <!-- <ion-back-button (click)="resetForm()"></ion-back-button> -->
+      <!-- <ion-back-button routerLink="/registrar"></ion-back-button> -->
+      <!-- <ion-button slot="start" routerLink="/registrar"><ion-icon name="cloud"></ion-icon></ion-button> -->
+    </ion-buttons>
+    <ion-title mode="ios">Fotos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list class="ion-no-padding">
+    
+    <ion-card style="border: 1px solid rgba(0, 0, 0, 0.4);">
+      <ion-item *ngFor="let item of resultados" button  [routerLink]="['/', 'actualizar', item._id]" detail>
+        <ion-thumbnail slot="start">
+          <ion-img src="{{Server+item.imageUrl}}">
+          </ion-img>
+        </ion-thumbnail>
+        <ion-label style="font-weight: bold;">
+          <h2><ion-text  style="font-weight: bold;">{{ item.title }}</ion-text></h2>
+          <p>
+            <ion-text color="success" slot="end">{{ item.price }} $</ion-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer class="ion-no-padding">
+  <ion-toolbar color="dark">
+    <ion-button  fill="clear" expand="full" routerLink="/registrar" style="color: #fff;">
+      <ion-icon slot="start" name="grid"></ion-icon>Atras
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

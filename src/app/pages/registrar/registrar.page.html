@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="danger" mode="ios">
+    <ion-title>Agregar Fotos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="ion-padding" style="border: 1px solid rgba(0, 0, 0, 0.4);">
+    <ion-card-title class="ion-text-center">
+      <ion-text>Registro de Imagenes</ion-text>
+    </ion-card-title>
+    <ion-item>
+      <ion-label position="floating">Titulo: </ion-label>
+      <ion-input [(ngModel)]="datos.title" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Numero: </ion-label>
+      <ion-input [(ngModel)]="datos.price" type="number" required></ion-input>
+    </ion-item>
+    <input type="file" accept="image/*" class="hidden" (change)="onPhotoSelected($event)" #photoInput>
+    <!-- <img [src]="photoselected || 'assets/no-image.png'" (click)="photoInput.click()"> -->
+    <img [src]="photoselected || 'assets/no-image.png'">
+    <ion-button color="danger" expand="block" (click)="photoInput.click()">
+      <ion-icon name="image" slot="start"></ion-icon> Elegir foto
+    </ion-button>
+    <ion-button color="danger" expand="block" (click)="submitForm()">
+      <ion-icon name="save" slot="start"></ion-icon> Guardar
+    </ion-button>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer class="ion-no-padding">
+  <ion-toolbar color="danger">
+    <ion-button  fill="clear" expand="full" routerLink="/lista" style="color: #fff;">
+      <ion-icon slot="start" name="grid"></ion-icon>Lista de Fotos
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
