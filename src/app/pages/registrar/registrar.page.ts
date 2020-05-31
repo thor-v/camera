@@ -3,6 +3,7 @@ import { Images } from 'src/app/models/images';
 import { PhotosService } from 'src/app/services/photos.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 interface HtmlInputEvent extends Event {
   target: HTMLInputElement & EventTarget
@@ -18,6 +19,8 @@ export class RegistrarPage implements OnInit, OnDestroy {
   file: File;
   photoselected: string | ArrayBuffer;
   datos: Images;
+
+  myValueSub: Subscription;
 
   constructor(private photoService: PhotosService, private router: Router, private toastController: ToastController) { 
     this.datos = new Images();
@@ -46,7 +49,7 @@ export class RegistrarPage implements OnInit, OnDestroy {
   }
 
   submitForm(){
-    this.photoService.createPhoto(this.datos.title, this.datos.price, this.file)
+    this.myValueSub = this.photoService.createPhoto(this.datos.title, this.datos.price, this.file)
       .subscribe(res => {
         this.presentToast('Foto registrado.')
         this.router.navigate(['lista']);
@@ -55,7 +58,10 @@ export class RegistrarPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    console.log('page destroy');
+    if(this.myValueSub){
+      console.log('page destroy registrar');
+      this.myValueSub.unsubscribe();
+    }
   }
 
 }

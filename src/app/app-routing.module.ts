@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'registrar',
+    redirectTo: 'lista',
     pathMatch: 'full'
   },
   {

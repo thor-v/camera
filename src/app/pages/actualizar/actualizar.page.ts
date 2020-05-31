@@ -1,8 +1,9 @@
-import { Component, OnInit, ɵSWITCH_COMPILE_INJECTABLE__POST_R3__ } from '@angular/core';
+import { Component, OnInit, ɵSWITCH_COMPILE_INJECTABLE__POST_R3__, OnDestroy } from '@angular/core';
 import { PhotosService } from 'src/app/services/photos.service';
 import { Images } from 'src/app/models/images';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController, AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 interface HtmlInputEvent extends Event { 
   target: HTMLInputElement & EventTarget;
@@ -13,7 +14,7 @@ interface HtmlInputEvent extends Event {
   templateUrl: './actualizar.page.html',
   styleUrls: ['./actualizar.page.scss'],
 })
-export class ActualizarPage implements OnInit {
+export class ActualizarPage implements OnInit, OnDestroy {
 
   datos: Images;
   file: File;
@@ -22,12 +23,14 @@ export class ActualizarPage implements OnInit {
   url2 = 'http://192.168.0.4:4000';
   img = null;
 
+  myValueSub: Subscription;
+
   constructor(private photosService: PhotosService, public router: Router,public activatedRoute: ActivatedRoute, private toastController: ToastController, private alertCtrl: AlertController) { }
 
   ngOnInit() {
     let id = this.activatedRoute.snapshot.params["id"];
     //get item details using id
-    this.photosService.getItem(id).subscribe(response => {
+    this.myValueSub = this.photosService.getItem(id).subscribe(response => {
       // console.log(response);
       this.datos = response;
       this.img = this.url2+this.datos.imageUrl;
@@ -95,6 +98,13 @@ export class ActualizarPage implements OnInit {
       ]
     });
     await alertElement.present();
+  }
+
+  ngOnDestroy(){
+    if(this.myValueSub){
+      console.log('Destroy ACtualizar');
+      this.myValueSub.unsubscribe();
+    }
   }
   
 }

@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="lista"></ion-back-button>
     </ion-buttons>
     <ion-title mode="ios">{{datos.title}}</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" color="dark">
       <ion-button (click)="delete(datos._id)"><ion-icon name="trash"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -17,7 +17,7 @@
       <ion-text>Actualizar Imagenes</ion-text>
     </ion-card-title><br>
     <!-- <ion-img src="{{img}}"></ion-img> -->
-    <input type="file"  accept="image/*" capture class="hidden" (change)="onPhotoSelected($event)" #photoInput>
+    <input type="file"  accept="image/*" class="hidden" (change)="onPhotoSelected($event)" #photoInput>
     <!-- <img [src]="photoselected || img" (click)="photoInput.click()"> -->
     <img [src]="photoselected || img">
     <ion-button color="warning" expand="block" (click)="photoInput.click()">

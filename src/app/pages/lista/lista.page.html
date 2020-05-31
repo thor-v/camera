@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="dark" style="color: #fff;">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/registrar"></ion-back-button>
+      <!-- <ion-back-button defaultHref="/registrar"></ion-back-button> -->
       <!-- <ion-back-button (click)="resetForm()"></ion-back-button> -->
       <!-- <ion-back-button routerLink="/registrar"></ion-back-button> -->
       <!-- <ion-button slot="start" routerLink="/registrar"><ion-icon name="cloud"></ion-icon></ion-button> -->
@@ -17,8 +17,7 @@
     <ion-card style="border: 1px solid rgba(0, 0, 0, 0.4);">
       <ion-item *ngFor="let item of resultados" button  [routerLink]="['/', 'actualizar', item._id]" detail>
         <ion-thumbnail slot="start">
-          <ion-img src="{{Server+item.imageUrl}}">
-          </ion-img>
+          <img [src]="Server+item.imageUrl">
         </ion-thumbnail>
         <ion-label style="font-weight: bold;">
           <h2><ion-text  style="font-weight: bold;">{{ item.title }}</ion-text></h2>
@@ -35,7 +34,7 @@
 <ion-footer class="ion-no-padding">
   <ion-toolbar color="dark">
     <ion-button  fill="clear" expand="full" routerLink="/registrar" style="color: #fff;">
-      <ion-icon slot="start" name="grid"></ion-icon>Atras
+      <ion-icon slot="start" name="grid"></ion-icon>Registrar
     </ion-button>
   </ion-toolbar>
 </ion-footer>

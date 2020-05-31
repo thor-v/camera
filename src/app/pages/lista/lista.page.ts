@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PhotosService } from 'src/app/services/photos.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Images } from 'src/app/models/images';
 import { Router } from '@angular/router';
 
@@ -9,10 +9,12 @@ import { Router } from '@angular/router';
   templateUrl: './lista.page.html',
   styleUrls: ['./lista.page.scss'],
 })
-export class ListaPage implements OnInit {
+export class ListaPage implements OnInit, OnDestroy {
 
   resultados: Images[] = [];
+  // Server = 'http://192.168.0.8:4000';
   Server = 'http://192.168.0.4:4000';
+  myValueSub: Subscription;
 
   constructor(private photosService: PhotosService, private router: Router) { 
     // this.resultados = [];
@@ -20,18 +22,14 @@ export class ListaPage implements OnInit {
 
   ngOnInit() {
     this.getAllStudents();
-    // this.resultados = this.photosService.getList();
   }
 
   ionViewWillEnter() {
     this.getAllStudents();
-    // this.resultados = this.photosService.getList();
   }
  
   getAllStudents() {
-    //Get saved list of students
-    this.photosService.getList().subscribe(response => {
-      // console.log(response);
+    this.myValueSub = this.photosService.getList().subscribe(response => {
       this.resultados = response;
     })
   }
@@ -39,6 +37,13 @@ export class ListaPage implements OnInit {
   resetForm(){
     console.log('atras')
     this.router.navigate(['registrar']);
+  }
+
+  ngOnDestroy(){
+    if(this.myValueSub){
+      console.log('destroy');
+      this.myValueSub.unsubscribe();
+    }
   }
 
 }
